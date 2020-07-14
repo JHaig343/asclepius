@@ -14,7 +14,7 @@ import (
 //MakeConnection Connect to MongoDB Atlas
 func MakeConnection() (ctx context.Context, cli *mongo.Client) {
 	// set up client
-	client, err := mongo.NewClient(options.Client().ApplyURI("mongodb+srv://" + UserName + ":" + DatabasePasswd + "@cluster0-uunik.mongodb.net/test?retryWrites=" + DatabaseName + "&w=majority"))
+	client, err := mongo.NewClient(options.Client().ApplyURI("mongodb+srv://" + UserName + ":" + DatabasePasswd + "@cluster0-uunik.mongodb.net/test?retryWrites=true&w=majority"))
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -65,4 +65,20 @@ func InsertNotebook(ctx context.Context, client *mongo.Client, nb Notebook) {
 	}
 	id := res.InsertedID
 	fmt.Println(id)
+}
+
+//RetrieveNotebook currently retrieves the first notebook object it finds from the database
+func RetrieveNotebook(ctx context.Context, client *mongo.Client) Notebook {
+	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
+	defer cancel()
+	//TODO: defer cancel() here
+	collection := client.Database(DatabaseName).Collection("ipynbparser")
+	var nb Notebook
+	//For now just get first object
+	err := collection.FindOne(ctx, bson.D{}).Decode(&nb)
+	if err != nil {
+		log.Fatal(err)
+	}
+	return nb
+
 }

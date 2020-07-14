@@ -4,6 +4,7 @@ import (
 	// "fmt"
 	// "net/http"
 	// Local package + remote package from github
+	"fmt"
 	"github.com/JHaig343/asclepius/ipynbparser"
 	// "example.com/user/hello/morestrings"
 	// "github.com/google/go-cmp/cmp"
@@ -26,6 +27,9 @@ func main() {
 	//Insert the Notebook object into the ipynbparser collection
 	ipynbparser.InsertNotebook(ctx, client, notebook)
 	//Finally, close the DB connection
+	fmt.Println("Now retrieving notebook from DB")
+	nb := ipynbparser.RetrieveNotebook(ctx, client)
+	nb.Encode("mongo.json")
 	ipynbparser.CloseConnection(ctx, client)
 
 }
