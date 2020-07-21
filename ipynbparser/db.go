@@ -19,7 +19,7 @@ func MakeConnection() (ctx context.Context, cli *mongo.Client) {
 		log.Fatal(err)
 	}
 	// Set timeout to 10 seconds
-	ctx, _ = context.WithTimeout(context.Background(), 10*time.Minute)
+	ctx, _ = context.WithTimeout(context.Background(), 10*time.Second)
 
 	// TODO: context cancelled as soon as function exits with call below
 	// defer cancel()
@@ -69,9 +69,9 @@ func InsertNotebook(ctx context.Context, client *mongo.Client, nb Notebook) {
 
 //RetrieveNotebook currently retrieves the first notebook object it finds from the database
 func RetrieveNotebook(ctx context.Context, client *mongo.Client) Notebook {
+	//set context timeout to 30 sec
 	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
 	defer cancel()
-	//TODO: defer cancel() here
 	collection := client.Database(DatabaseName).Collection("ipynbparser")
 	var nb Notebook
 	//For now just get first object

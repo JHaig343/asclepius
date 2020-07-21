@@ -58,7 +58,6 @@ type Meta struct {
 type cellmetadata struct{}
 
 // Foobar is an example of an embedded struct;
-// FIXME: can Gorm do multiple levels of embedded?
 type Foobar struct {
 	Name string
 	Age  int
@@ -71,5 +70,5 @@ type Notebook struct {
 	Metadata       Meta   `json:"metadata" bson:"metadata"`
 	Nbformat       int    `json:"nbformat" bson:"nbformat"`
 	Nbformat_minor int    `json:"nbformat_minor" bson:"nbformat_minor"`
-	Foobar         Foobar `gorm:"embedded" bson:"embedded"`
+	//Foobar         Foobar `gorm:"embedded" bson:"embedded"`
 }

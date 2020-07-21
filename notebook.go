@@ -6,8 +6,6 @@ import (
 	// Local package + remote package from github
 	"fmt"
 	"github.com/JHaig343/asclepius/ipynbparser"
-	// "example.com/user/hello/morestrings"
-	// "github.com/google/go-cmp/cmp"
 )
 
 func main() {
