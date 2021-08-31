@@ -5,11 +5,11 @@ import (
 	// "net/http"
 	// Local package + remote package from github
 	"fmt"
+
 	"github.com/JHaig343/asclepius/ipynbparser"
 )
-
+// FIXME: Mongo connection cred expired - generate new ones
 func main() {
-
 	notebook := ipynbparser.DecodeNotebook()
 
 	notebook.PrintMarkdownContent()

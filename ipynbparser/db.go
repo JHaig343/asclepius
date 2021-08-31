@@ -49,7 +49,7 @@ func ListDBs(ctx context.Context, client *mongo.Client) {
 	fmt.Println(databases)
 }
 
-//CLose the connection when done
+//CloseConnection closes the connection when done
 func CloseConnection(ctx context.Context, client *mongo.Client) {
 	//This will defer closing connection until main() exits
 	defer client.Disconnect(ctx)
